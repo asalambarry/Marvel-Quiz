@@ -1,24 +1,50 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState, Fragment } from 'react'
 
 const Landing = () => {
     const refWolverine = useRef(null)
-    console.log(refWolverine);
+    const [btn, setBtn] = useState(false)
+    // console.log(refWolverine);
 
     useEffect(() => {
+        // setTimeout(() => {
+        //     refWolverine.current.classList.add('startingImg')
+        // }, 1000);
         refWolverine.current.classList.add('startingImg')
         setTimeout(() => {
             refWolverine.current.classList.remove('startingImg')
-        }, 200);
+            setBtn(true)
+        }, 1000);
 
     }, [])
-    return (
-        <main ref={refWolverine} className='welcomePage'>
-            <div className='leftBox'>
+    // Permet d'ajouter les griffes quand je suis à mon button de inscription
+    const setLeftImg = () => {
+        refWolverine.current.classList.add('leftImg')
+    }
+     // Permet d'ajouter les griffes quand je suis à mon button de connexion
+    const setRightImg = () => {
+        refWolverine.current.classList.add('rightImg')
+    }
+    // Cette fonction permet d'alterer le changement de mon griffe en fonction ou le button il est placer
+    const setClearImg = () => {
+        if (refWolverine.current.classList.contains('leftImg')) {
+            refWolverine.current.classList.remove('leftImg')
+        } else if (refWolverine.current.classList.contains('rightImg')) {
+            refWolverine.current.classList.remove('rightImg')
+        }
+    }
+    const displayBtn = btn && (
+        <Fragment>
+            <div onMouseOver={setLeftImg} onMouseOut={setClearImg} className='leftBox'>
                 <button className='btn-welcome'>Inscription</button>
             </div>
-            <div className='rightBox'>
+            <div onMouseOver={setRightImg} className='rightBox'>
                 <button className='btn-welcome'>Connexion</button>
             </div>
+        </Fragment>
+    )
+    return (
+        <main ref={refWolverine} className='welcomePage'>
+            {displayBtn}
         </main>
     )
 }
