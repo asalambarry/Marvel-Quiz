@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../Firebase/firebase'
-const Signup = () => {
+import { useNavigate } from 'react-router-dom';
+const Signup = (props) => {
 
+    //   console.log(props);
+    let navigate = useNavigate();
     // const [loginData, setLoginData] = useState({
     //     pseudo:'',
     //     email:'',
     //     password:'',
     //     confirmPassword:''
     // })
+
     const data = {
         pseudo: '',
         email: '',
@@ -23,24 +28,25 @@ const Signup = () => {
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.id]: e.target.value })
     }
-
+    // const { email, password } = loginData;
     const handleSubmit = e => {
         e.preventDefault()
-        const { email, password } = loginData;
         createUserWithEmailAndPassword(auth, email, password)
             // firebase.signupUser(eamil, password)
             .then(user => {
                 // Apres avoir rempli on vide notre formulaire
                 setLoginData({ ...data })
+                // props.history.push('/welcome')
+                navigate('/welcome');
+                console.log(navigate);
             })
             .catch(error => {
                 setError(error)
                 // Apres avoir rempli on vide notre formulaire
                 setLoginData({ ...data })
             })
-
-
     }
+
     // Ici j'ai fait le destructuring pour afficher les valeurs dans le input via value 
     const { pseudo, email, password, confirmPassword } = loginData
 
@@ -56,7 +62,6 @@ const Signup = () => {
         <div className='signUpLoginBox'>
             <div className='slContainer'>
                 <div className='formBoxLeftSignup'>
-                    mon div de gauche
                 </div>
                 <div className='formBoxRight'>
                     <div className='formContent'>
@@ -82,6 +87,9 @@ const Signup = () => {
                             </div>
                             {btn}
                         </form>
+                        <div className='linkContainer'>
+                            <Link className='simpleLink' to="/login">Déjà inscrit ? connectez-vous</Link>
+                        </div>
                     </div>
                 </div>
             </div>
