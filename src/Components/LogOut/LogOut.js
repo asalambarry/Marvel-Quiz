@@ -7,7 +7,7 @@ function LogOut() {
     const navigate = useNavigate()
 
     const [checked, setChecked] = useState(false)
-    console.log(checked);
+    // console.log(checked);
     useEffect(() => {
         if (checked) {
             // console.log("Deconnexion");
@@ -20,7 +20,7 @@ function LogOut() {
                 console.log("Oups, nous avons une erreur!");
             })
         }
-    }, [checked])
+    }, [checked, setChecked, navigate])
     const handleChange = (e) => {
         // console.log(e.target.checked);
         setChecked(e.target.checked)
