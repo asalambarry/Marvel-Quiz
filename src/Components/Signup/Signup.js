@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../Firebase/firebase'
 const Signup = () => {
 
     // const [loginData, setLoginData] = useState({
@@ -16,9 +17,29 @@ const Signup = () => {
     }
 
     const [loginData, setLoginData] = useState(data)
-    console.log(loginData);
+    const [error, setError] = useState('')
+    // console.log(loginData);
+
     const handleChange = (e) => {
-        setLoginData({...loginData, [e.target.id]:e.target.value})
+        setLoginData({ ...loginData, [e.target.id]: e.target.value })
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        const { email, password } = loginData;
+        createUserWithEmailAndPassword(auth, email, password)
+            // firebase.signupUser(eamil, password)
+            .then(user => {
+                // Apres avoir rempli on vide notre formulaire
+                setLoginData({ ...data })
+            })
+            .catch(error => {
+                setError(error)
+                // Apres avoir rempli on vide notre formulaire
+                setLoginData({ ...data })
+            })
+
+
     }
     // Ici j'ai fait le destructuring pour afficher les valeurs dans le input via value 
     const { pseudo, email, password, confirmPassword } = loginData
@@ -27,7 +48,10 @@ const Signup = () => {
     // sont vide sinon il affiche le btn
 
     const btn = pseudo === '' || email === '' || password === '' || password !== confirmPassword ?
-    <button disabled>Inscription</button> : <button>Inscription</button> 
+        <button disabled>Inscription</button> : <button>Inscription</button>
+
+    // gestion d'erreurs
+    const errorMsg = error !== '' && <span>{error.message}</span>
     return (
         <div className='signUpLoginBox'>
             <div className='slContainer'>
@@ -36,8 +60,10 @@ const Signup = () => {
                 </div>
                 <div className='formBoxRight'>
                     <div className='formContent'>
-                        <form>
-                            <h2>Inscription</h2>
+                        {errorMsg}
+                        <h2>Inscription</h2>
+                        <form onSubmit={handleSubmit}>
+
                             <div className='inputBox'>
                                 <input onChange={handleChange} value={pseudo} type="text" id="pseudo" autoComplete='off' required />
                                 <label htmlFor="pseudo">Pseudo</label>
