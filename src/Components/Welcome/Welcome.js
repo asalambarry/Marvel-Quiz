@@ -14,7 +14,7 @@ const Welcome = () => {
 			user ? setUserSession(user) : navigate('/')
 		})
 		return listener
-	}, [])
+	})
 	return userSession === null ? (
 		<Fragment>
 			<div className='loader'>

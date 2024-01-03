@@ -8,6 +8,7 @@ import Welcome from '../Welcome/Welcome';
 import Loggin from '../Loggin/Loggin';
 import Signup from '../Signup/Signup';
 import ErrorPage from '../ErrorPage/ErrorPage';
+import ForgetPassword from '../ForgetPassword/ForgetPassword';
 function App() {
     return (
         <Router>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/login" element={<Loggin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
  
