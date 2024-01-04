@@ -4,6 +4,8 @@
 // Version 10 de firebase que j'utilise
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore, doc } from "firebase/firestore";
+
 
 
 const config = {
@@ -24,3 +26,5 @@ const config = {
  
 const app = initializeApp(config)
 export const auth = getAuth(app)
+export const db = getFirestore();
+export const user  = uid => doc(db, `users/${uid}`);

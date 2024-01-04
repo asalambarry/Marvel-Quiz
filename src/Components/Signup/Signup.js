@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../Firebase/firebase'
+import { auth, user } from '../Firebase/firebase'
+import { setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 const Signup = (props) => {
 
@@ -32,6 +33,14 @@ const Signup = (props) => {
     const handleSubmit = e => {
         e.preventDefault()
         createUserWithEmailAndPassword(auth, email, password)
+        // En utilisant la fonction setDoc me permet d'enregistrer les données depuis firestore
+            .then(userAuth => {
+                return setDoc(user(userAuth.user.uid), {
+                    // Sachant que les informations qu'on veut enregistrer est le pseudo et l'email de la personne
+                    pseudo: pseudo,
+                    email: email
+                })
+            })
             // firebase.signupUser(eamil, password)
             .then(user => {
                 // Apres avoir rempli on vide notre formulaire
