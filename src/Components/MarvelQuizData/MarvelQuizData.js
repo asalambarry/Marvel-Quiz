@@ -1,7 +1,5 @@
 export const MarvelQuizData = [
     {
-        // fournisseur: "Donkey Geek (https://www.youtube.com/c/DonkeyGeek)",
-        // sujet: "Application Marvel Quiz pour apprentissage React JS",
         quizz: {
             debutant: [
                 {
