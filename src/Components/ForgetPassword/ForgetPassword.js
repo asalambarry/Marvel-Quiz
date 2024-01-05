@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../Firebase/firebase'
 import { useNavigate } from 'react-router-dom';
+
 const StyledSucces = {
     border: '1px solid green',
     background: 'green',
     color: '#ffffff'
 }
+
 const ForgetPassword = () => {
 
     const navigate = useNavigate()
@@ -18,6 +20,7 @@ const ForgetPassword = () => {
     const handleEmail = (e) => {
         setEmail(e.target.value)
     }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         sendPasswordResetEmail(auth,email)
@@ -34,7 +37,6 @@ const ForgetPassword = () => {
                 setError(error)
                 setEmail('')
             })
-
     }
     // const disabledEmail = email === ""
     return (

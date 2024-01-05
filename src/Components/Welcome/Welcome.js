@@ -7,6 +7,7 @@ import { getDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 
 const Welcome = () => {
+
 	const navigate = useNavigate()
 	const [userSession, setUserSession] = useState(null)
 	const [userData, setMyUserData] = useState({
@@ -36,6 +37,7 @@ const Welcome = () => {
 		}
 		return listener
 	})
+
 	return userSession === null ? (
 		<Fragment>
 			<div className='loader'>
@@ -51,7 +53,6 @@ const Welcome = () => {
 
 		</div>
 	)
-
 }
 
 export default Welcome
